@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1580113239 source:c:\users\novin\desktop\c++\pipe line project ap 981\main.cpp
+	<iostream>
+	"Graph.cpp"
+
+1580114378 c:\users\novin\desktop\c++\pipe line project ap 981\graph.h
+	<array>
+	<list>
+
+1580114383 c:\users\novin\desktop\c++\pipe line project ap 981\graph.cpp
+	"Graph.h"
+
