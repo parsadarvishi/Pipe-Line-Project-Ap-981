@@ -7,10 +7,16 @@ class Graph
 private:
     static const short int game_size = 25;
 public:
+    //game board
     std::array < std::list<int> , game_size > graph;
-    void add_path (int , int);
-    void remove_path(int , int);
-    bool is_there_way (int );
+    // putting a line between to vertex
+    void add_path (const int ,const int);
+    // deleting a line between two vertex
+    void remove_path(const int ,const int);
+    // deleting all the relations between a vertex and near vertices
+    void remove_neighor (const int);
+    // checking that if there is way from a vertex to end
+    bool is_there_way (const int );
 
 };
 

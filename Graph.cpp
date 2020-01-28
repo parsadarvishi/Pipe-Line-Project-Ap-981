@@ -45,5 +45,12 @@ bool Graph::is_there_way (const int f)
 
     return false;
 }
+void Graph::remove_neighor(const int first)
+{
+    for (auto item : graph.at(first))
+    {
+        remove_path(first , item);
+    }
+}
 
 

@@ -1,15 +1,15 @@
 #include <iostream>
 #include "Graph.cpp"
+#include "Generation_core.cpp"
 #include <SFML/Graphics.hpp>
 using namespace std;
 
 int main()
 {
+    Generate_puzzle G;
+    G.find_an_answer();
 
-
-
-
-     sf::RenderWindow win(sf::VideoMode(200, 200), "SFML Test");
+    sf::RenderWindow win(sf::VideoMode(200, 200), "SFML Test");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
