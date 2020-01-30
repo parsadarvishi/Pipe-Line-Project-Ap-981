@@ -1,15 +1,14 @@
 #include "Generation_core.h"
-#include "Pipe.h"
-#include "LinePipe.cpp"
-#include "TurnPipe.cpp"
-#include "CrossPipe.cpp"
+#include  "LinePipe.h"
+#include  "TurnPipe.h"
+#include "CrossPipe.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
 #include <iterator>
 #include <map>
-//using namespace std;
+using namespace std;
 void Generate_puzzle::creat_game_graph ()
 {
      for(int i=0 ; i<25 ; i++)
@@ -26,28 +25,25 @@ void Generate_puzzle::creat_game_graph ()
             game.add_path(i,i+5);
         }
     }
+
 }
-
-
-//**********************************************
 int Generate_puzzle::random_number(int num)
 {
-    srand(time(0)); // producing the random function seed
+    if (num == 0 )
+        return 0;
     int i;
     i = rand()%num;
     return i ;
 
 }
-//**********************************************
 
-
-//**********************************************
-void Generate_puzzle::find_an_answer()
+// *****************************************************************************************Puzzle maker***********
+map<int , Pipe*> Generate_puzzle::find_an_answer()
 {
     creat_game_graph();
     short int current = 0;// shows the current vertex that we are on it
     int random ; // keeping the generated random number
-
+    srand(time(0)); // producing the random function seed
     short int temp; // temp memory to keep the next vertex we are going too
     bool B;
     vector <int> possible_vertex ; // keeping the vertex that we can go from neighbors of that vertex
@@ -56,8 +52,6 @@ void Generate_puzzle::find_an_answer()
     solotion.push_back(current);
     while (current < 24)
     {
-
-
         for(auto it = game.graph.at(current).begin() ; it != game.graph.at(current).end() ; it++) // test
         {
             neighbor.push_back(*it);
@@ -68,15 +62,16 @@ void Generate_puzzle::find_an_answer()
             B = false;
         if(solotion.size() >2)
         {
-            for (unsigned int i = 1 ; i < solotion.size()-1 ; i++)
+            for (int i = 1 ; i < solotion.size()-1 ; i++)
                 {
+
                     if ( (solotion.at(i) - solotion.at(i-1)) == 1 && (solotion.at(i+1) - solotion.at(i) == 1) && (B== true))
                     {
                         game.add_path(solotion.at(i), solotion.at(i)-5);
                         game.add_path(solotion.at(i), solotion.at(i)+5);
                     }
                 }
-                for (unsigned int i = 1 ; i < solotion.size()-1 ; i++)
+                for (int i = 1 ; i < solotion.size()-1 ; i++)
                 {
                     if ( (solotion.at(i) - solotion.at(i-1)) == 5 && (solotion.at(i+1) - solotion.at(i) == 5) && (B== true))
                     {
@@ -86,107 +81,181 @@ void Generate_puzzle::find_an_answer()
                 }
         }
         // checking a vertex neighbos to see if there is way so we can go from it
-        for (unsigned int i = 0 ; i < neighbor.size() ; i++)
+        for (int i = 0 ; i < neighbor.size() ; i++)
         {
+
             game.remove_path(current , neighbor.at(i));
             if (game.is_there_way(neighbor.at(i)))
                 possible_vertex.push_back(neighbor.at(i));
             game.add_path(current , neighbor.at(i));
         }
         // choosing a random verte to go
+        if ( possible_vertex.size() > 0)
+            {
         random = random_number(possible_vertex.size());
+
         temp = possible_vertex.at(random);
         // removing last vertex neighbors
         game.remove_neighor(current);
         current = temp;
         solotion.push_back(temp);
+        }
+        else if (possible_vertex.size() == 0)
+        {
+            solotion.push_back(24);
+            current = 24;
+        }
         possible_vertex.clear();
         neighbor.clear();
     }
-
     for (auto item : solotion)
     {
         cout << item << " ";
     }
-}
-//************************************
-
-
-//************************************
-/*map<int , Pipe * > Generate_puzzle::Table_maker(vector<int> Solotion)
-{
-    map <int  , Pipe *> Board;
+    cout << endl;
+   map <int  , Pipe *> Board;
 // Declaring the first pipe at number 0 cell
-    if (Solotion.at(1) == 1)
+    if (solotion.at(1) == 1)
     {
-        Board[0]=new Turn(270) ;
+        Board[0]=new Turn(0) ;
     }
-    else if ( Solotion.at(1) == 5)
+    else if ( solotion.at(1) == 5)
     {
         Board[0]=new Line(0);
     }
 // Declaring the last Pipe at number 24 cell
-    if ( Solotion.at(Solotion.size()-2) == 19 )
+    if ( solotion.at(solotion.size()-2) == 19 )
     {
-        Board[Solotion.size()]=new Line(0);
+        Board[24]=new Line(0);
     }
-    else if (Solotion.at(Solotion.size()-2) == 23)
+    else if (solotion.at(solotion.size()-2) == 23)
     {
-        Board.at(Solotion.size())= new Turn(180);
+        Board[ 24]= new Turn(180);
     }
  // Declaring other Pipes in the solotion;
-        for (unsigned int r = 1 ; r < Solotion.size()-1 ; r++ )
+        for (unsigned int r = 1 ; r < solotion.size()-1; r++ )
     {
         int random = 0; // choosing line pipe or cross pipe
-        int first = Solotion.at(r-1);
-        int middle = Solotion.at(r);
-        int next = Solotion.at(r+1);
+       int A = solotion.at(r-1)-solotion.at(r);
+       int B = solotion.at(r)-solotion.at(r+1);
 // producing a Line pipe with 0 rotation ( | )
-        if(middle - first == 5 && next - middle == 5)
+
+        if((abs(A) == abs(B)) && abs(A) == 1)
         {
             random = random_number(2);
             if (random == 0)
             {
-                Board[r]= new Line(0);
+                Board[solotion.at(r)]= new Line(180);
             }
             if(random == 1)
             {
-                Board[r] = new Cross(180);
+                Board[solotion.at(r)] = new Cross(0);
             }
         }
 // producing a Line pipe with 180 rotation ( -- )
-        if( middle - first == 1 && next - middle == 1)
+        if((abs(A) == abs(B)) && abs(A) == 5)
         {
             random = random_number(2);
             if (random == 0)
             {
-                Board[r]= new Line(0);
+                Board[solotion.at(r)]= new Line(0);
             }
             if(random == 1)
             {
-                Board[r] = new Cross(180);
+                Board[solotion.at(r)] = new Cross(0);
             }
         }
 // producing a Turn Pipe with 0 rotation ( |_ )
-        if(next - first == 6 && next - middle == 1)
+        if( (A == -5 && B==-1) ||  (A == 1 && B==5) )
         {
-            Board[r]=new Turn(0);
+            Board[solotion.at(r)]=new Turn(0);
         }
 // producing a Turn pipe with 90 rotation ( |- )
-        if(first - next == 4 && next - middle == 1)
+        if((A == 5 && B==-1) ||  (A == 1 && B==-5))
         {
-            Board[r] = new Turn(90);
+            Board[solotion.at(r)] = new Turn(90);
         }
 // producing a Turn pipe with 180 rotation ( -| )
-        if( next - first == 6 && middle - first == 1)
+        if(( A == -1 && B==-5) ||  (A == 5 && B==1))
         {
-            Board[r] = new Turn(180);
+            Board[solotion.at(r)] = new Turn(180);
         }
 // producing a Turn pipe with 270 rotation ( _| )
-        if(first - next == 4 && middle - first == 1)
+        if((A == -1 && B==5) ||  (A == -5  && B== 1))
         {
-            Board[r] = new Turn(270);
+            Board[solotion.at(r)] = new Turn(270);
+        }
+        if( r == 24)
+        {
+            break;
         }
     }
+    map<int, Pipe*>::iterator it;
+
+
+
+    // filliing the rest of the table with pipes
+    for (int i =  0 ; i < solotion.size() ; i++)
+    {
+        bool check = false;
+
+        for (it = Board.begin() ; it != Board.end() ; it++ )
+        {
+            if (it->first == i)
+                check = true;
+        }
+        if(check == false)
+        {
+            int r;
+            r = random_number(3);
+           switch(r)
+           {
+           case(0):
+               Board[i]= new Cross();
+                    break;
+           case(1):
+               Board[i]=new Line();
+                    break;
+            case(2):
+                Board[i]=new Turn();
+                    break;
+           }
+        }
+    }
+    for (it = Board.begin(); it!=Board.end() ; it++)
+    {
+        int rand;
+        rand = random_number(4);
+        switch (rand)
+        {
+        case(0):
+            it->second->Set_rotation(90);
+            break;
+        case(1):
+             it->second->Set_rotation(0);
+            break;
+        case(2):
+             it->second->Set_rotation(270);
+            break;
+        case(3):
+             it->second->Set_rotation(180);
+            break;
+        }
+    }
+        for(it = Board.begin(); it != Board.end(); it++)
+    {
+        cout << it->first;
+        cout<<it->second->get_name();
+        cout <<it->second->get_rotation()<<endl;
+    }
+
     return Board;
-}*/
+}
+
+
+
+
+
+
+
+

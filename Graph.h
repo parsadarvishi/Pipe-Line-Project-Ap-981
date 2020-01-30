@@ -20,5 +20,4 @@ public:
 
 };
 
-
 #endif // GRAPH_H_INCLUDED

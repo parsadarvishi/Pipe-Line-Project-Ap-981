@@ -8,7 +8,7 @@ public :
     explicit Pipe(unsigned short int R = 0);
     void Set_rotation (unsigned short int);
     unsigned short int get_rotation ();
-//    virtual string get_name () = 0 ;
+    virtual std::string get_name () = 0 ;
 protected:
     unsigned short int rotation;
 };

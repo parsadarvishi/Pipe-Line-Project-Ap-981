@@ -1,19 +1,27 @@
 #include <iostream>
-#include "Graph.cpp"
-#include "Generation_core.cpp"
-#include <SFML/Graphics.hpp>
+#include "Graph.h"
+#include "Generation_core.h"
 #include <map>
-#include <vector>
 #include "Pipe.h"
+#include <SFML/Graphics.hpp>
+#include <array>
 using namespace std;
 
 int main()
 {
-    cout << "A";
-    /*Generate_puzzle G;
-    G.find_an_answer();
-
-
+    map <int , Pipe*> Board;
+    Generate_puzzle G;
+    Board = G.find_an_answer();
+    array < array <Pipe* , 5 > , 5> Gamefinall;
+    unsigned short int counter = 0;
+    for (int i = 0 ; i < 4  ; i ++)
+    {
+        for (int j = 0 ; j < 4 ; j++)
+        {
+            Gamefinall.at(i).at(j) = Board[counter];
+            counter++;
+        }
+    }
     sf::RenderWindow win(sf::VideoMode(200, 200), "SFML Test");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
@@ -32,6 +40,6 @@ int main()
         win.clear();
         win.draw(shape);
         win.display();
-    }*/
+    }
     return 0;
 }

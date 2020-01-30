@@ -1,5 +1,5 @@
 #include "LinePipe.h"
-
+using namespace std;
  Line::Line(unsigned short int R)
  {
      Set_rotation(R);
