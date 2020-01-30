@@ -1,9 +1,12 @@
 # depslib dependency file v1.0
-1580240987 source:c:\users\novin\desktop\c++\pipe line project ap 981\main.cpp
+1580390416 source:c:\users\novin\desktop\c++\pipe line project ap 981\main.cpp
 	<iostream>
 	"Graph.cpp"
 	"Generation_core.cpp"
 	<SFML/Graphics.hpp>
+	<map>
+	<vector>
+	"Pipe.cpp"
 
 1580194999 c:\users\novin\desktop\c++\pipe line project ap 981\graph.h
 	<array>
@@ -424,13 +427,63 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1580241101 c:\users\novin\desktop\c++\pipe line project ap 981\generation_core.cpp
+1580389415 c:\users\novin\desktop\c++\pipe line project ap 981\generation_core.cpp
 	"Generation_core.h"
+	"Pipe.h"
+	"LinePipe.cpp"
+	"TurnPipe.cpp"
+	"CrossPipe.cpp"
 	<iostream>
 	<stdlib.h>
 	<time.h>
 	<vector>
 	<iterator>
+	<map>
 
-1580198254 c:\users\novin\desktop\c++\pipe line project ap 981\generation_core.h
+1580387483 c:\users\novin\desktop\c++\pipe line project ap 981\generation_core.h
+	<vector>
+	<map>
+	"Pipe.h"
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\pipe.h
+	<string>
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\linepipe.h
+	"Pipe.h"
+	<string>
+
+1580363487 c:\users\novin\desktop\c++\pipe line project ap 981\croospipe.h
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\turnpipe.h
+	"Pipe.h"
+
+1580373840 c:\users\novin\desktop\c++\pipe line project ap 981\pipe.cpp
+	"Pipe.h"
+
+1580373840 source:c:\users\novin\desktop\c++\pipe line project ap 981\pipe.cpp
+	"Pipe.h"
+
+1580373840 source:c:\users\novin\desktop\c++\pipe line project ap 981\linepipe.cpp
+	"LinePipe.h"
+
+1580213600 source:c:\users\novin\desktop\c++\pipe line project ap 981\graph.cpp
+	"Graph.h"
+	<array>
+	<list>
+	<iterator>
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\turnpipe.cpp
+	"TurnPipe.h"
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\linepipe.cpp
+	"LinePipe.h"
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\crosspipe.cpp
+	"CrossPipe.h"
+
+1580390176 c:\users\novin\desktop\c++\pipe line project ap 981\crosspipe.h
+	"Pipe.h"
+
+1580389268 source:c:\users\novin\desktop\c++\pipe line project ap 981\crosspipe.cpp
+	"CrossPipe.h"
 

@@ -2,12 +2,17 @@
 #include "Graph.cpp"
 #include "Generation_core.cpp"
 #include <SFML/Graphics.hpp>
+#include <map>
+#include <vector>
+#include "Pipe.h"
 using namespace std;
 
 int main()
 {
-    Generate_puzzle G;
+    cout << "A";
+    /*Generate_puzzle G;
     G.find_an_answer();
+
 
     sf::RenderWindow win(sf::VideoMode(200, 200), "SFML Test");
     sf::CircleShape shape(100.f);
@@ -27,6 +32,6 @@ int main()
         win.clear();
         win.draw(shape);
         win.display();
-    }
+    }*/
     return 0;
 }

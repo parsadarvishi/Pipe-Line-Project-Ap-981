@@ -39,19 +39,40 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Generation_core.cpp">
+		<Unit filename="CrossPipe.cpp">
 			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="CrossPipe.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="Generation_core.cpp">
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="Generation_core.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="Graph.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="Graph.h" />
+		<Unit filename="LinePipe.cpp">
+			<Option target="Release" />
+		</Unit>
+		<Unit filename="LinePipe.h" />
+		<Unit filename="Pipe.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="Graph.h">
+		<Unit filename="Pipe.h" />
+		<Unit filename="TurnPipe.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="main.cpp" />
+		<Unit filename="TurnPipe.h">
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
