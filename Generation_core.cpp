@@ -229,25 +229,20 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
         switch (rand)
         {
         case(0):
-            it->second->Set_rotation(90);
+            it->second->Set_changing_rotation(90);
             break;
         case(1):
-             it->second->Set_rotation(0);
+             it->second->Set_changing_rotation(0);
             break;
         case(2):
-             it->second->Set_rotation(270);
+             it->second->Set_changing_rotation(270);
             break;
         case(3):
-             it->second->Set_rotation(180);
+             it->second->Set_changing_rotation(180);
             break;
         }
     }
-        for(it = Board.begin(); it != Board.end(); it++)
-    {
-        cout << it->first;
-        cout<<it->second->get_name();
-        cout <<it->second->get_rotation()<<endl;
-    }
+
 
     return Board;
 }

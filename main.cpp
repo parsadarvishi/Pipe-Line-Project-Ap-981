@@ -6,9 +6,11 @@
 #include <SFML/Graphics.hpp>
 #include <array>
 using namespace std;
-
+using namespace sf;
 int main()
 {
+    Vector2f offset(170, 170);
+    int length = 108;
     map <int , Pipe*> Board;
     Generate_puzzle G;
     Board = G.find_an_answer();
@@ -22,24 +24,44 @@ int main()
             counter++;
         }
     }
-    sf::RenderWindow win(sf::VideoMode(200, 200), "SFML Test");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+       RenderWindow window(VideoMode(780, 780), "Pipe Line");
 
-    while (win.isOpen())
+    while (window.isOpen())
     {
-        sf::Event event;
-        while (win.pollEvent(event))
+        Event event;
+        while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed)
+                window.close();
+            if (event.type == Event::MouseButtonPressed)
+                if(event.key.code == Mouse::Left)
+                {
+                    Vector2i pos = Mouse::getPosition(window) + Vector2i(length/2, length/2) - Vector2i(offset);
+                    pos/=length;
+                    if(pos.x > 4 || pos.x < 0 || pos.y < 0 || pos.y > 4 || Mouse::getPosition(window).y < 117 || Mouse::getPosition(window).x < 117)
+                    {
+                        continue;
+                    }
+                    Gamefinall[pos.y][pos.x]->Rotate();
+                }
+        }
+
+        window.clear(Color(255, 255, 255));
+
+        for(int i = 0; i < 5; i++)
+        {
+            for(int j = 0; j < 5; j++)
             {
-                win.close();
+                Pipe* p = Gamefinall[i][j];
+                p->picture.setTextureRect(IntRect(0, 0, length, length));
+                p->picture.setRotation( p->get_changing_rotation());
+                p->picture.setPosition(j * length, i *length);
+                p->picture.move(offset);
+                window.draw(p->picture);
             }
         }
 
-        win.clear();
-        win.draw(shape);
-        win.display();
+        window.display();
     }
     return 0;
 }
