@@ -40,6 +40,7 @@ int Generate_puzzle::random_number(int num)
 // *****************************************************************************************Puzzle maker***********
 map<int , Pipe*> Generate_puzzle::find_an_answer()
 {
+    {
     creat_game_graph();
     short int current = 0;// shows the current vertex that we are on it
     int random ; // keeping the generated random number
@@ -113,7 +114,7 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
         cout << item << " ";
     }
     cout << endl;
-   map <int  , Pipe *> Board;
+
 // Declaring the first pipe at number 0 cell
     if (solotion.at(1) == 1)
     {
@@ -130,7 +131,7 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
     }
     else if (solotion.at(solotion.size()-2) == 23)
     {
-        Board[ 24]= new Turn(180);
+        Board[ 24]= new Turn(2);
     }
  // Declaring other Pipes in the solotion;
         for (unsigned int r = 1 ; r < solotion.size()-1; r++ )
@@ -138,21 +139,21 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
         int random = 0; // choosing line pipe or cross pipe
        int A = solotion.at(r-1)-solotion.at(r);
        int B = solotion.at(r)-solotion.at(r+1);
-// producing a Line pipe with 0 rotation ( | )
+// producing a Line pipe with 0 rotation ( -- )
 
         if((abs(A) == abs(B)) && abs(A) == 1)
         {
             random = random_number(2);
             if (random == 0)
             {
-                Board[solotion.at(r)]= new Line(180);
+                Board[solotion.at(r)]= new Line(2);
             }
             if(random == 1)
             {
                 Board[solotion.at(r)] = new Cross(0);
             }
         }
-// producing a Line pipe with 180 rotation ( -- )
+// producing a Line pipe with 180 rotation ( | )
         if((abs(A) == abs(B)) && abs(A) == 5)
         {
             random = random_number(2);
@@ -173,35 +174,36 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
 // producing a Turn pipe with 90 rotation ( |- )
         if((A == 5 && B==-1) ||  (A == 1 && B==-5))
         {
-            Board[solotion.at(r)] = new Turn(90);
+            Board[solotion.at(r)] = new Turn(1);
         }
 // producing a Turn pipe with 180 rotation ( -| )
         if(( A == -1 && B==-5) ||  (A == 5 && B==1))
         {
-            Board[solotion.at(r)] = new Turn(180);
+            Board[solotion.at(r)] = new Turn(2);
         }
 // producing a Turn pipe with 270 rotation ( _| )
         if((A == -1 && B==5) ||  (A == -5  && B== 1))
         {
-            Board[solotion.at(r)] = new Turn(270);
+            Board[solotion.at(r)] = new Turn(3);
         }
         if( r == 24)
         {
             break;
         }
     }
+
     map<int, Pipe*>::iterator it;
 
 
 
     // filliing the rest of the table with pipes
-    for (int i =  0 ; i < solotion.size() ; i++)
+    for (int i =  0 ; i < 25 ; i++)
     {
         bool check = false;
 
-        for (it = Board.begin() ; it != Board.end() ; it++ )
+        for (int j = 0 ; j < solotion.size() ; j++ )
         {
-            if (it->first == i)
+            if (solotion.at(j) == i)
                 check = true;
         }
         if(check == false)
@@ -222,26 +224,15 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
            }
         }
     }
+//shuffleeeeee
     for (it = Board.begin(); it!=Board.end() ; it++)
     {
         int rand;
         rand = random_number(4);
-        switch (rand)
-        {
-        case(0):
-            it->second->Set_changing_rotation(90);
-            break;
-        case(1):
-             it->second->Set_changing_rotation(0);
-            break;
-        case(2):
-             it->second->Set_changing_rotation(270);
-            break;
-        case(3):
-             it->second->Set_changing_rotation(180);
-            break;
+        it->second->Set_changing_rotation(rand);
         }
     }
+
 
 
     return Board;

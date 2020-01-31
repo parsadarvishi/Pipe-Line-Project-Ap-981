@@ -3,25 +3,100 @@
 #include "Generation_core.h"
 #include <map>
 #include "Pipe.h"
+#include  "LinePipe.h"
+#include  "TurnPipe.h"
+#include "CrossPipe.h"
 #include <SFML/Graphics.hpp>
 #include <array>
+#include <fstream>
 using namespace std;
 using namespace sf;
+bool Win();
 int main()
 {
     Vector2f offset(170, 170);
     int length = 108;
+    char loaded = false;
     map <int , Pipe*> Board;
     Generate_puzzle G;
-    Board = G.find_an_answer();
     array < array <Pipe* , 5 > , 5> Gamefinall;
-    unsigned short int counter = 0;
-    for (int i = 0 ; i < 4  ; i ++)
+    int A;
+    fstream file ("Save.bin" , ios::binary | ios::in |ios::out );
+    if(!file.is_open())
+        cout << "file baz nashod ";
+    cout << "Do you want new game or you want load game?  0 for new 1 for load";
+    cin >>  A;
+    if(A==0)
     {
-        for (int j = 0 ; j < 4 ; j++)
+        Board = G.find_an_answer();
+
+        unsigned short int counter = 0;
+        for (int i = 0 ; i < 5  ; i ++)
         {
-            Gamefinall.at(i).at(j) = Board[counter];
-            counter++;
+            for (int j = 0 ; j < 5 ; j++)
+            {
+                Gamefinall.at(i).at(j) = Board[counter];
+                counter++;
+
+            }
+        }
+    }
+    if ( A == 1 ) // loading
+    {
+        loaded = true;
+        file.seekg(0);
+        char nh;
+        char rh;
+        char zero = 0;
+        while(file.good())
+        {
+            for (int i = 0 ; i < 5 ; i++)
+            {
+                for ( int j = 0 ; j < 5 ; j++)
+                {
+                     for (int k = 0 ; k <2 ; k++)
+                    {
+                        file.get(nh);
+                        file.get(rh);
+                        int rot = (int)rh - (int)zero;
+                        switch (nh)
+                        {
+                        case('L'):
+                            Gamefinall.at(i).at(j) = new Line(rot);
+                            break;
+                        case('C') :
+                            Gamefinall.at(i).at(j) = new Cross(rot);
+                            break;
+                        case('T'):
+                            Gamefinall.at(i).at(j) = new Turn(rot);
+                            break;
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
+       for(int i = 0; i < 5; i++)
+    {
+        for(int j = 0; j < 5; j++)
+        {
+           Gamefinall.at(i).at(j)->fill_in();
+        }
+    }
+    if (loaded = false)
+    {
+    cout << "Do you want to save game ? 0 for yes 1 for no";
+    cin >> A;
+    }
+    if (A == 0) // saving
+    {
+        for(int i = 0 ; i < 5 ; i++){
+            for (int j = 0 ; j < 5 ; j++){
+                file.put(Gamefinall.at(i).at(j)->get_name());
+                file.put((char)(Gamefinall.at(i).at(j)->get_changing_rotation()));
+            }
         }
     }
        RenderWindow window(VideoMode(780, 780), "Pipe Line");
@@ -43,10 +118,11 @@ int main()
                         continue;
                     }
                     Gamefinall[pos.y][pos.x]->Rotate();
+                    cout << pos.y << " " << pos.x << endl;
                 }
         }
 
-        window.clear(Color(255, 255, 255));
+        window.clear(Color(0, 0, 0));
 
         for(int i = 0; i < 5; i++)
         {
@@ -54,7 +130,7 @@ int main()
             {
                 Pipe* p = Gamefinall[i][j];
                 p->picture.setTextureRect(IntRect(0, 0, length, length));
-                p->picture.setRotation( p->get_changing_rotation());
+                p->picture.setRotation(90 * p->get_changing_rotation());
                 p->picture.setPosition(j * length, i *length);
                 p->picture.move(offset);
                 window.draw(p->picture);
@@ -65,3 +141,4 @@ int main()
     }
     return 0;
 }
+bool Win();

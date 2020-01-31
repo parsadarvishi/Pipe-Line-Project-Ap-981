@@ -14,6 +14,7 @@ public :
     int random_number (int);
 private:
     Graph game;
+    std::map <int  , Pipe *> Board;
 };
 
 

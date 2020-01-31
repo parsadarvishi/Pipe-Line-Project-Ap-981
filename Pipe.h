@@ -11,8 +11,8 @@ public :
     void Set_changing_rotation (unsigned short int);
     unsigned short int get_changing_rotation ();
     unsigned short int get_rotation ();
-    virtual std::string get_name () = 0 ;
-    void Rotate();
+    virtual char get_name () = 0 ;
+    virtual void Rotate() = 0 ;
     sf::Sprite picture;
 protected:
      unsigned short int rotation;

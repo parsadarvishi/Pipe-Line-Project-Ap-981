@@ -1,4 +1,5 @@
 #include "LinePipe.h"
+#include <iostream>
 using namespace std;
  Line::Line(unsigned short int R)
  {
@@ -7,11 +8,19 @@ using namespace std;
  }
 void Line::fill_in()
 {
-    Pictxt.loadFromFile("Assets/Line.png");
+    cout << "Line";
+    if(!Pictxt.loadFromFile("Assets/Line.png"))
+        cout << "Cannot load pic into program Line class" << endl;
     picture.setTexture(Pictxt);
     picture.setOrigin(54,54);
 }
-string Line::get_name()
+char Line::get_name()
 {
-    return "L";
+    return 'L';
+}
+void Line::Rotate()
+{
+    changing_rotation++;
+    if(changing_rotation == 2)
+        Set_changing_rotation(0);
 }
