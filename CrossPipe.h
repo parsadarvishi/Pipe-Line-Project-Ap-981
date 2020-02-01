@@ -10,6 +10,8 @@ public:
     void fill_in();
     virtual char get_name () override;
     virtual void Rotate() override;
+    virtual void Set_rotation(unsigned short int) override;
+    virtual void Set_changing_rotation (unsigned short int) override;
 private:
      sf::Texture Pictxt;
 };

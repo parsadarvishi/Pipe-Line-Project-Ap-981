@@ -9,7 +9,6 @@ Cross::Cross(unsigned short int R)
 }
 void Cross::fill_in()
 {
-    cout << "Cross";
     if(!Pictxt.loadFromFile("Assets/Cross.png"))
      cout << "Cannot load pic into program Cross class" << endl;
     picture.setTexture(Pictxt);
@@ -22,6 +21,15 @@ char Cross::get_name()
 void Cross::Rotate()
 {
     changing_rotation++;
-    if(changing_rotation == 2)
+    if(changing_rotation == 1)
     Set_changing_rotation(0);
+}
+void Cross::Set_rotation(unsigned short int R)
+{
+    if ( R == 0)
+        rotation = 0;
+}
+void Cross::Set_changing_rotation (unsigned short int R)
+{
+    changing_rotation = 0;
 }

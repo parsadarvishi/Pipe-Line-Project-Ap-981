@@ -39,6 +39,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add library="sfml-Audio" />
+		</Linker>
 		<Unit filename="CrossPipe.cpp" />
 		<Unit filename="CrossPipe.h" />
 		<Unit filename="Generation_core.cpp" />

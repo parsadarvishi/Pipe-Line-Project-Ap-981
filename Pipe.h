@@ -6,9 +6,8 @@ class Pipe
 {
 public :
     virtual void fill_in () = 0 ;
-    explicit Pipe(unsigned short int R = 0);
-    void Set_rotation (unsigned short int) ;
-    void Set_changing_rotation (unsigned short int);
+    virtual void Set_rotation (unsigned short int) = 0;
+    virtual void Set_changing_rotation (unsigned short int) = 0;
     unsigned short int get_changing_rotation ();
     unsigned short int get_rotation ();
     virtual char get_name () = 0 ;

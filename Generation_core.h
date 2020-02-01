@@ -3,13 +3,14 @@
 #include "Graph.h"
 #include "Pipe.h"
 #include <map>
+#include <vector>
 class Generate_puzzle
 {
 public :
     // for Declaring neighbors of an vertex
     void creat_game_graph ();
     // finding a unique way from begin to the end of our graph
-    std::map<int , Pipe*> find_an_answer ();
+    std::map<int , Pipe*> find_an_answer (std::vector<int>&);
     // random function
     int random_number (int);
 private:

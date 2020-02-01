@@ -38,7 +38,7 @@ int Generate_puzzle::random_number(int num)
 }
 
 // *****************************************************************************************Puzzle maker***********
-map<int , Pipe*> Generate_puzzle::find_an_answer()
+map<int , Pipe*> Generate_puzzle::find_an_answer( vector<int>& A )
 {
     {
     creat_game_graph();
@@ -109,10 +109,12 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
         possible_vertex.clear();
         neighbor.clear();
     }
+    cout << "Solotion is :   ";
     for (auto item : solotion)
     {
         cout << item << " ";
     }
+    A = solotion;
     cout << endl;
 
 // Declaring the first pipe at number 0 cell
@@ -146,7 +148,7 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
             random = random_number(2);
             if (random == 0)
             {
-                Board[solotion.at(r)]= new Line(2);
+                Board[solotion.at(r)]= new Line(1);
             }
             if(random == 1)
             {
@@ -232,7 +234,6 @@ map<int , Pipe*> Generate_puzzle::find_an_answer()
         it->second->Set_changing_rotation(rand);
         }
     }
-
 
 
     return Board;
